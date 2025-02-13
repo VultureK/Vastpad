@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vastpad - An endless notepad with pure freedom.</title>
+    <style>
+        /*** Importing fonts real quick ***/
+        @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Benne&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Figtree:ital,wght@0,300..900;1,300..900&family=Goudy+Bookletter+1911&family=Linden+Hill:ital@0;1&display=swap');
+
+        /*** Real stuff ***/
+        body {
+            font-family: "Onest", serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: #f5f5f5;
+        }
+        #controls {
+            background: #ffffff;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin: 10px;
+        }
+        #editor {
+            flex: 1;
+            width: 90%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            padding: 30px;
+            background: white;
+            font-family: Arial, sans-serif;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            resize: none;
+            height: 80vh;
+        }
+        .heading-button, input, select {
+            border-radius: 10px;
+            border: none;
+            padding: 8px 12px;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+        .heading-button:hover, input:hover, select:hover {
+            background: #d6d6d6;
+        }
+        #fontSize, #fontColor, #fontFamily {
+            background: #ffffff;
+            padding: 6px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+        #Fontstxt, #Fontstxt-Serif {
+            background-color: #e8e8e8;
+            font-weight: bold;
+        }
+        .logo {
+            align-items: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <img class="logo" src="images/logo_dark.png" alt="Vastpad Logo">
+
+        <input type="number" id="fontSize" value="16" min="10" max="72">
+
+        <select id="fontFamily">
+            <option id="Fontstxt" value="none">Fonts</option>
+            <option value="Arial">Arial</option>
+            <option value="Figtree">Figtree</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Onest">Onest</option>
+            <option id="Fontstxt-Serif" value="none">Serif Fonts</option>
+            <option value="EB Garamond">EB Garamond</option>
+            <option value="Crimson Text">Crimson Text</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Goudy Bookletter 1911">Goudy Bookletter 1911 (BROKE)</option>
+            <option value="Linden Hill">Linden Hill</option>
+            <option value="Benne">Benne</option>
+        </select>
+
+        <input type="color" id="fontColor">
+        <button class="heading-button" onclick="addHeading('h1')">H1</button>
+        <button class="heading-button" onclick="addHeading('h2')">H2</button>
+        <button class="heading-button" onclick="addHeading('h3')">H3</button>
+    </div>
+    <textarea id="editor" placeholder="Start typing..."></textarea>
+
+    <script>
+        document.getElementById('fontSize').addEventListener('input', function() {
+            document.getElementById('editor').style.fontSize = this.value + 'px';
+        });
+
+        document.getElementById('fontFamily').addEventListener('change', function() {
+            document.getElementById('editor').style.fontFamily = this.value;
+        });
+
+        document.getElementById('fontColor').addEventListener('input', function() {
+            document.getElementById('editor').style.color = this.value;
+        });
+
+        function addHeading(type) {
+            let editor = document.getElementById('editor');
+            let headingText = `\n<${type}>Heading</${type}>\n`;
+            editor.value += headingText;
+        }
+
+        document.getElementById('editor').addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                event.preventDefault();
+                document.execCommand('insertText', false, '\t');
+            }
+        });
+    </script>
+</body>
+</html>
